@@ -18,7 +18,7 @@ public class BudgetPlanningApplication {
 		//fullData.getSumOfBalanceOfMonth();
 		//fullData.getMaxOfYear();
 		
-		//fullData.displayMaxMinForMonths();
-		fullData.savingsPotential();
+		fullData.displayMaxMinForMonths();
+		//fullData.savingsPotential();
 	}
 }
