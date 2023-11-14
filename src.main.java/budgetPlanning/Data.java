@@ -417,4 +417,8 @@ public class Data {
 			+ "    {\"month\": \"Dezember\", \"day\": 31, \"expenses\": true, \"value\": 160.0},\n"
 			+ "    {\"month\": \"Dezember\", \"day\": 31, \"expenses\": true, \"value\": 112.0},\n"
 			+ "    {\"month\": \"Dezember\", \"day\": 31, \"expenses\": true, \"value\": 0.0}\n" + "  ]\n" + "}";
+	public Object getDataContainer() {
+		
+		return null;
+	}
 }
