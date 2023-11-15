@@ -17,7 +17,7 @@ class DataTest {
             "}";
         Data data = new Data(validJsonString);
         assertTrue(data.isValidJson(), "Der JSON-String sollte gültig sein.");
-        //System.out.print("hhhh");
+        System.out.println("Test 1: Der JSON String ist gültig");
     }
 	
 	@Test
@@ -30,6 +30,7 @@ class DataTest {
             "}";
         Data data = new Data(validJsonString);
         assertTrue(data.validateData(), "Die Daten sollten als gültig validiert werden.");
+        System.out.println("Test 2: Die Daten innerhalb des JSON Strings sind valide");
     }
 
     @Test
@@ -41,6 +42,7 @@ class DataTest {
             "  ]"; // Fehlende schließende Klammer
         Data data = new Data(invalidJsonString);
         assertFalse(data.validateData(), "Die Daten sollten als ungültig validiert werden.");
+        System.out.println("Test 3: Die Daten sind nicht valide. Überprüfe deine Struktur.");
     }
 
 }
