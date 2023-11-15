@@ -58,6 +58,28 @@ public class HandleDataTest {
         assertEquals(expectedList, result);
         verify(mockDataContainer).getData();
     }
+    
+    @Test
+    void testIsValidJson() {
+        Data data = new Data("Gültiger JSON-String");
+        assertTrue(data.isValidJson());
+    }
+    
+    @Test
+    void testCreateNewDataInstance() {
+        HandleData handleData = new HandleData();
+        Data data = handleData.createNewDataInstance("Gültiger JSON-String");
+        assertNotNull(data);
+    }
+    
+    @Test
+    void testValidateData() {
+        Data validData = new Data("Gültiger JSON-String");
+        assertTrue(validData.validateData());
+
+        Data invalidData = new Data("Ungültiger JSON-String");
+        assertFalse(invalidData.validateData());
+    }
 
     @Test
     void testGetSumOfBalanceOfMonth() {

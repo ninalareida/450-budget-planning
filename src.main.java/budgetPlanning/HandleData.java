@@ -140,6 +140,11 @@ public class HandleData {
 		}
 		return dataList;
 	}
+	
+	// Methode, um eine neue Instanz von Data zu erstellen und zurückzugeben
+    public Data createNewDataInstance(String jsonString) {
+        return new Data(jsonString);
+    }
 
 	/**
 	 * Shows the sum of income and expenses of each each month

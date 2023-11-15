@@ -1,6 +1,7 @@
 package budgetPlanning;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * This class stores the data JSON String
@@ -421,4 +422,31 @@ public class Data {
 		
 		return null;
 	}
+	
+	public Data(String jsonString) {
+        this.jsonString = jsonString;
+    }
+	
+	public Data() {
+		
+	}
+	
+	// Methode, um zu überprüfen, ob GSON genutzt wird
+    public boolean isValidJson() {
+        try {
+            gson.fromJson(jsonString, Object.class);
+            return true;
+        } catch (JsonSyntaxException e) {
+            return false;
+        }
+    }
+
+    // Methode zur Fehlerbehandlung bei ungültigen Daten
+    public boolean validateData() {
+        // Implementieren Sie die Logik zur Überprüfung der Gültigkeit der Daten
+        // Zum Beispiel: Überprüfen Sie, ob jsonString ein gültiges JSON-Objekt ist
+        return isValidJson();
+    }
+	
+	
 }
