@@ -15,18 +15,34 @@ public class HandleData {
 	private int day;
 	private Boolean expenses;
 	private double value;
-
+	private final DataContainer dataContainer;
+	
 	public HandleData() {
+		this.dataContainer = new DataContainer();
+
+	}
+
+	public HandleData(DataContainer dataContainer) {
+		this.dataContainer = new DataContainer();
 
 	}
 
 	public HandleData(String month, int day, Boolean expenses, double value) {
 		super();
+		this.dataContainer = new DataContainer();
 		this.month = month;
 		this.day = day;
 		this.expenses = expenses;
 		this.value = value;
 	}
+	
+	/*
+	private final DataContainer dataContainer;
+
+    public HandleData(DataContainer dataContainer) {
+        this.dataContainer = dataContainer;
+    }
+    */
 
 	/**
 	 * Get the month
