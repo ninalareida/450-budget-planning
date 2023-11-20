@@ -15,6 +15,18 @@ import com.google.gson.JsonSyntaxException;
  */
 public class Data {
 	Gson gson = new Gson();
+	String jsonStrning;
+	
+	public Data() {
+	    // Initialisierung
+	}
+
+	public Data(String jsonString) {
+		this.jsonString = jsonString;
+	}
+	
+	
+
 	String jsonString = "{\n" + "  \"data\": [\n"
 			+ "    {\"month\": \"Januar\", \"day\": 1, \"expenses\": true, \"value\": 100.0},\n"
 			+ "    {\"month\": \"Januar\", \"day\": 2, \"expenses\": true, \"value\": 150.0},\n"
@@ -418,35 +430,5 @@ public class Data {
 			+ "    {\"month\": \"Dezember\", \"day\": 31, \"expenses\": true, \"value\": 160.0},\n"
 			+ "    {\"month\": \"Dezember\", \"day\": 31, \"expenses\": true, \"value\": 112.0},\n"
 			+ "    {\"month\": \"Dezember\", \"day\": 31, \"expenses\": true, \"value\": 0.0}\n" + "  ]\n" + "}";
-	public Object getDataContainer() {
-		
-		return null;
-	}
-	
-	public Data(String jsonString) {
-        this.jsonString = jsonString;
-    }
-	
-	public Data() {
-		
-	}
-	
-	// Methode, um zu überprüfen, ob GSON genutzt wird
-    public boolean isValidJson() {
-        try {
-            gson.fromJson(jsonString, Object.class);
-            return true;
-        } catch (JsonSyntaxException e) {
-            return false;
-        }
-    }
 
-    // Methode zur Fehlerbehandlung bei ungültigen Daten
-    public boolean validateData() {
-        // Implementieren Sie die Logik zur Überprüfung der Gültigkeit der Daten
-        // Zum Beispiel: Überprüfen Sie, ob jsonString ein gültiges JSON-Objekt ist
-        return isValidJson();
-    }
-	
-	
 }

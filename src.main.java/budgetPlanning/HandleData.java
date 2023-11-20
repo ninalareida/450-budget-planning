@@ -23,7 +23,7 @@ public class HandleData {
 	}
 
 	public HandleData(DataContainer dataContainer) {
-		this.dataContainer = new DataContainer();
+		this.dataContainer = dataContainer;
 
 	}
 
@@ -223,6 +223,27 @@ public class HandleData {
 
 		return dataList;
 	}
+	
+	
+	public double getMaximumOfYear() {
+		Data data = new Data();
+		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = myObject.getData();
+		double value = 0;
+		double maxValue = 0;
+
+		for (HandleData item : dataList) {
+			value = item.getValue();
+
+			if (value > maxValue) {
+				maxValue = value;
+			}
+		}
+		return maxValue;
+	}
+	
+	
+	
 
 	/**
 	 * Shows the maximum of income and maximum of expenses for every month within

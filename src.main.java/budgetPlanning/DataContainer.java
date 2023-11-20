@@ -1,5 +1,6 @@
 package budgetPlanning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,8 +16,8 @@ import java.util.List;
  */
 
 public class DataContainer {
-	private List<HandleData> data;
-
+	private List<HandleData> data = new ArrayList<>();
+	
 	/**
 	 * Get the data
 	 * 
@@ -24,5 +25,9 @@ public class DataContainer {
 	 */
     public List<HandleData> getData() {
         return data;
+    }
+    
+    public void setData(List<HandleData> data) {
+        this.data = data;
     }
 }

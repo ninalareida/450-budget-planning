@@ -8,7 +8,7 @@ class DataTest {
 
 	@Test
     void testIsValidJsonWithValidData() {
-        // Gültiger JSON-String
+        // valid JSON-String
         String validJsonString = "{\n" +
             "  \"data\": [\n" +
             "    {\"month\": \"Januar\", \"day\": 1, \"expenses\": true, \"value\": 100.0},\n" +
@@ -19,6 +19,7 @@ class DataTest {
         assertTrue(data.isValidJson(), "Der JSON-String sollte gültig sein.");
         System.out.println("Test 1: Der JSON String ist gültig");
     }
+	
 	
 	@Test
     void testValidateDataWithValidData() {
@@ -37,9 +38,9 @@ class DataTest {
     void testValidateDataWithInvalidData() {
         String invalidJsonString = "{\n" +
             "  \"data\": [\n" +
-            "    {\"month\": \"Januar\", \"day\": 1, \"expenses\": true, \"value\": 100.0}\n" + // Kein Komma
+            "    {\"month\": \"Januar\", \"day\": 1, \"expenses\": true, \"value\": 100.0}\n" + // no comma
             "    {\"month\": \"Januar\", \"day\": 2, \"expenses\": true, \"value\": 150.0}\n" +
-            "  ]"; // Fehlende schließende Klammer
+            "  ]"; // missing (
         Data data = new Data(invalidJsonString);
         assertFalse(data.validateData(), "Die Daten sollten als ungültig validiert werden.");
         System.out.println("Test 3: Die Daten sind nicht valide. Überprüfe deine Struktur.");
