@@ -1,5 +1,6 @@
 package budgetPlanning;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -319,76 +320,108 @@ public class HandleData {
 	 * potential" < 200 "little potential" bigger than 200 is great potential
 	 * @return 
 	 */
-	public double savingsPotential() {
-		System.out.println("------------------------------------------");
-		System.out.println("-------------- SPARPOTENZIAL -------------");
-		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = dataContainer.getData();
 
-		String currentMonth = "";
-		double totalIncome = 0;
-		double totalExpenses = 0;
-		double total = 0;
+	//Hilfsklasse
+		public class SavingsResult {
+		    private double totalIncome;
+		    private double totalExpenses;
+		    private double total;
+		    private String savingsCategory;
+		    private String month; // Hinzufügen des Monats
 
-		for (HandleData item : dataList) {
-			String month = item.getMonth();
-			double value = item.getValue();
-			boolean isExpense = item.getExpenses();
+		    public SavingsResult(double totalIncome, double totalExpenses, double total, String savingsCategory, String month) {
+		        this.totalIncome = totalIncome;
+		        this.totalExpenses = totalExpenses;
+		        this.total = total;
+		        this.savingsCategory = savingsCategory;
+		        this.month = month;
+		    }
 
-			if (!month.equals(currentMonth)) {
-				if (!currentMonth.isEmpty()) {
-					// Print the totals for the previous month
-					System.out.println("------------------------------------------");
-					System.out.println("Monat: " + currentMonth);
-					System.out.println("------------------------------------------");
-					System.out.println("\tEinkommen: " + totalIncome);
-					System.out.println("\tAusgaben: " + totalExpenses);
+		    // Getter Methoden
+		    public double getTotalIncome() { return totalIncome; }
+		    public double getTotalExpenses() { return totalExpenses; }
+		    public double getTotal() { return total; }
+		    public String getSavingsCategory() { return savingsCategory; }
+		    public String getMonth() { return month; } // Getter für den Monat
+		}
+		
+		public List<SavingsResult> calculateSavingsPotential() {
+		    List<HandleData> dataList = dataContainer.getData();
+		    List<SavingsResult> results = new ArrayList<>();
 
-					total = totalIncome - totalExpenses;
-					System.out.println("\tDifferenz: " + total);
+		    String currentMonth = "";
+		    double totalIncome = 0;
+		    double totalExpenses = 0;
 
-					if (total < 10) {
-						System.out.println("\t \t --> Kein Sparpotenzial");
-					} else if (total < 200) {
-						System.out.println("\t \t --> Mittel Sparpotenzial");
-					} else {
-						System.out.println("\t \t --> Hohes Sparpotenzial");
-					}
+		    for (HandleData item : dataList) {
+		        String month = item.getMonth();
+		        double value = item.getValue();
+		        boolean isExpense = item.getExpenses();
 
-				}
+		        if (!month.equals(currentMonth)) {
+		            if (!currentMonth.isEmpty()) {
+		                // Verarbeitung des vorherigen Monats
+		                double total = totalIncome - totalExpenses;
+		                String category = determineSavingsCategory(total);
+		                results.add(new SavingsResult(totalIncome, totalExpenses, total, category, currentMonth));
+		            }
 
-				// Reset totals for the new month
-				currentMonth = month;
-				totalIncome = 0;
-				totalExpenses = 0;
-			}
+		            // Zurücksetzen für den neuen Monat
+		            currentMonth = month;
+		            totalIncome = 0;
+		            totalExpenses = 0;
+		        }
 
-			if (isExpense) {
-				totalExpenses += value;
-			} else {
-				totalIncome += value;
-			}
+		        // Aktualisierung der Einnahmen/Ausgaben für den aktuellen Monat
+		        if (isExpense) {
+		            totalExpenses += value;
+		        } else {
+		            totalIncome += value;
+		        }
+		    }
+
+		    // Hinzufügen des letzten Monats
+		    double total = totalIncome - totalExpenses;
+		    String category = determineSavingsCategory(total);
+		    results.add(new SavingsResult(totalIncome, totalExpenses, total, category, currentMonth));
+
+		    return results;
+		}
+		
+
+		private String determineSavingsCategory(double total) {
+		    if (total < 10) {
+		        return "Kein Sparpotenzial";
+		    } else if (total < 200) {
+		        return "Mittel Sparpotenzial";
+		    } else {
+		        return "Hohes Sparpotenzial";
+		    }
 		}
 
-		// Print the totals for the last month
-		System.out.println("------------------------------------------");
-		System.out.println("Monat: " + currentMonth);
-		System.out.println("------------------------------------------");
-		System.out.println("\tEinkommen: " + totalIncome);
-		System.out.println("\tAusgaben: " + totalExpenses);
-		total = totalIncome - totalExpenses;
-		System.out.println("\tDifferenz: " + total);
-		if (total < 10) {
-			System.out.println("\t \t --> Kein Sparpotenzial");
-		} else if (total < 200) {
-			System.out.println("\t \t --> Mittel Sparpotenzial");
-		} else {
-			System.out.println("\t \t --> Hohes Sparpotenzial");
+			
+		public void savingsPotential() {
+		    List<SavingsResult> results = calculateSavingsPotential();
+
+		    // Iterieren durch die Liste der Ergebnisse und Ausgabe für jeden Monat
+		    for (SavingsResult result : results) {
+		        System.out.println("------------------------------------------");
+		        System.out.println("Monat: " + result.getMonth());
+		        System.out.println("------------------------------------------");
+		        System.out.println("\tEinkommen: " + result.getTotalIncome());
+		        System.out.println("\tAusgaben: " + result.getTotalExpenses());
+		        System.out.println("\tDifferenz: " + result.getTotal());
+		        System.out.println("\t \t --> " + result.getSavingsCategory());
+		        System.out.println("");
+		    }
 		}
-		System.out.println("");
-		return total;
-	}
+		
+	
+	
+	
+	
+	
+	
 
 	public DataContainer getDataContainer() {
 		return dataContainer;

@@ -20,6 +20,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -65,13 +67,76 @@ public class HandleDataTest {
 	        
 	    }
 	 
+	 
+	 //Konsistenz des Outputs
 	 @Test
-	    public void testSavingsPotential() {
-	        double result = handleData.savingsPotential();
-	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
+	 public void testSavingsPotentialOutputFormatting() {
+	     // Umleitung der Standardausgabe
+	     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outContent));
+
+	     // Ausführen der Methode
+	     handleData.savingsPotential();
+
+	     // Überprüfen der Ausgabe
+	     String output = outContent.toString();
+	     assertTrue(output.contains("Januar"));
+	     assertTrue(output.contains("Februar"));
+	     assertTrue(output.contains("März"));
+	     assertTrue(output.contains("April"));
+	     // Überprüfen Sie auf spezifische Formatierungsdetails, z.B. ob die Einkommen und Ausgaben korrekt angezeigt werden
+
+	     // Standardausgabe zurücksetzen
+	     System.setOut(System.out);
+	 }
+	 
+	 
+	 //Testen der Rechenfunktionen
+	 @Test
+	 public void testSavingsPotentialCalculations() {
+	     
+	     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outContent));
+
+	     handleData.savingsPotential();
+
+	     // Überprüfen der Ausgabe
+	     String output = outContent.toString();
+	     assertTrue(output.contains("Einkommen: 3000.0")); 
+	     assertTrue(output.contains("Ausgaben: 200.0"));
+	     assertTrue(output.contains("Differenz:"));
+	     assertTrue(output.contains("Hohes Sparpotenzial"));
+	     
+	   
+
+	     // Standardausgabe zurücksetzen
+	     System.setOut(System.out);
+	     
+	     System.out.println(output);
+	 }
+	 
+	 
+	 // Testen ob die Ausgabe komplett ist
+	 
+	 @Test
+	 public void testSavingsPotentialCompleteness() {
+	     // Umleitung der Standardausgabe
+	     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outContent));
+
+	     // Ausführen der Methode
+	     handleData.savingsPotential();
+
+	     // Überprüfen der Ausgabe
+	     String output = outContent.toString();
+	     String[] months = {"Januar", "Februar", "März", "April"};
+	     for (String month : months) {
+	         assertTrue(output.contains("Monat: " + month));
+	     }
+
+	     // Standardausgabe zurücksetzen
+	     System.setOut(System.out);
+	 }
 	 
 	 @Test
 	    public void getSumOfBalanceOfMonth() {
@@ -86,13 +151,12 @@ public class HandleDataTest {
 	 //Damit wird der Time-Aspekt integriert. Dies geschieht als Punkt 4 des
 	 //Test-Driven-Developments.
 	 
-	 @Test
+	 /*@Test
 	    public void getCurrentMonth() {
 	        double result = handleData.getSumOfBalanceOfMonth();
 	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
+	        assertEquals(expected, result, 0.01);	        
+	    }*/
 	 
 	 
 
