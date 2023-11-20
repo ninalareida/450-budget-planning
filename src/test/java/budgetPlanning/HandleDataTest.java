@@ -20,6 +20,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -43,58 +45,69 @@ public class HandleDataTest {
 
 		// Create test data
 		List<HandleData> testDataList = Arrays.asList(new HandleData("Januar", 1, true, 100.0),
-				new HandleData("Februar", 2, false, 3000.0), 
-				new HandleData("März", 3, true, 200.0),
-				new HandleData("April", 4, false, 8000.0)
-		);
+				new HandleData("Februar", 2, false, 3000.0), new HandleData("März", 3, true, 200.0),
+				new HandleData("April", 4, false, 8000.0));
 
 		DataContainer testDataContainer = new DataContainer();
 		testDataContainer.setData(testDataList);
-		
+
 		handleData.setDataContainer(testDataContainer);
 
 		// Mock the fromJson method
 		when(mockGson.fromJson(anyString(), eq(DataContainer.class))).thenReturn(testDataContainer);
 	}
 
-	 @Test
-	    public void testGetMaximumOfYear() {
-	        double result = handleData.getMaximumOfYear();
-	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
-	 
-	 @Test
-	    public void testSavingsPotential() {
-	        double result = handleData.savingsPotential();
-	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
-	 
-	 @Test
-	    public void getSumOfBalanceOfMonth() {
-	        double result = handleData.getSumOfBalanceOfMonth();
-	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
-	 
-	 //testdriven Um das Time-Freezing integrieren zu können wird noch ein Usecase
-	 //hinzugefügt: der Nutzer soll den aktuellen Monat ausgeben können.
-	 //Damit wird der Time-Aspekt integriert. Dies geschieht als Punkt 4 des
-	 //Test-Driven-Developments.
-	 
-	 @Test
-	    public void getCurrentMonth() {
-	        double result = handleData.getSumOfBalanceOfMonth();
-	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
-	 
-	 
+	@Test
+	public void testGetMaximumOfYear() {
+		double result = handleData.getMaximumOfYear();
+		double expected = 8000.0;
+		assertEquals(expected, result, 0.01);
+
+	}
+
+	@Test
+	public void testSavingsPotential() {
+		double result = handleData.savingsPotential();
+		double expected = 8000.0;
+		assertEquals(expected, result, 0.01);
+
+	}
+
+	@Test
+	public void getSumOfBalanceOfMonth() {
+		double result = handleData.getSumOfBalanceOfMonth();
+		double expected = 8000.0;
+		assertEquals(expected, result, 0.01);
+
+	}
+
+	// testdriven Um das Time-Freezing integrieren zu können wird noch ein Usecase
+	// hinzugefügt: der Nutzer soll den aktuellen Monat ausgeben können.
+	// Damit wird der Time-Aspekt integriert. Dies geschieht als Punkt 4 des
+	// Test-Driven-Developments.
+
+	@Test
+	public void getCurrentMonth() {
+		double result = handleData.getSumOfBalanceOfMonth();
+		double expected = 8000.0;
+		assertEquals(expected, result, 0.01);
+
+	}
+
+	@Test
+	public void testPrintDataForMonth() {
+		// Redirect System.out.println to capture output
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+
+		// Test the method
+		//HandleData.printDataForMonth(handleData.getDataContainer().getData(), "Januar");
+		handleData.printDataForMonth("Januar");
+		
+		// Verify the printed output
+		String expectedOutput = "Month: Januar, Day: 1, Expenses: true, Value: 100.0";
+		assertEquals(expectedOutput, outContent.toString().trim());
+	}
 
 	/*
 	 * @Test void testShowFullData() { List<HandleData> expectedList =

@@ -16,7 +16,7 @@ public class HandleData {
 	private Boolean expenses;
 	private double value;
 	private DataContainer dataContainer;
-	
+
 	public HandleData() {
 		this.setDataContainer(new DataContainer());
 
@@ -35,14 +35,13 @@ public class HandleData {
 		this.expenses = expenses;
 		this.value = value;
 	}
-	
-	/*
-	private final DataContainer dataContainer;
 
-    public HandleData(DataContainer dataContainer) {
-        this.dataContainer = dataContainer;
-    }
-    */
+	/*
+	 * private final DataContainer dataContainer;
+	 * 
+	 * public HandleData(DataContainer dataContainer) { this.dataContainer =
+	 * dataContainer; }
+	 */
 
 	/**
 	 * Get the month
@@ -127,7 +126,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("------------------ DATEN -----------------");
 		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		// DataContainer myObject = data.gson.fromJson(data.jsonString,
+		// DataContainer.class);
 		List<HandleData> dataList = dataContainer.getData();
 		for (HandleData item : dataList) {
 			System.out.println("------------------------------------------");
@@ -140,21 +140,23 @@ public class HandleData {
 		}
 		return dataList;
 	}
-	
+
 	// Methode, um eine neue Instanz von Data zu erstellen und zurückzugeben
-    public Data createNewDataInstance(String jsonString) {
-        return new Data(jsonString);
-    }
+	public Data createNewDataInstance(String jsonString) {
+		return new Data(jsonString);
+	}
 
 	/**
 	 * Shows the sum of income and expenses of each each month
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public double getSumOfBalanceOfMonth() {
 		System.out.println("------------------------------------------");
 		System.out.println("----- EINKOMMEN & AUSGABEN PRO MONAT -----");
 		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		// DataContainer myObject = data.gson.fromJson(data.jsonString,
+		// DataContainer.class);
 		List<HandleData> dataList = dataContainer.getData();
 
 		String currentMonth = "";
@@ -208,7 +210,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("-------------- JAHR MAXIMUM --------------");
 		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		// DataContainer myObject = data.gson.fromJson(data.jsonString,
+		// DataContainer.class);
 		List<HandleData> dataList = dataContainer.getData();
 		double value = 0;
 		double maxValue = 0;
@@ -225,11 +228,11 @@ public class HandleData {
 
 		return dataList;
 	}
-	
-	
+
 	public double getMaximumOfYear() {
 		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		// DataContainer myObject = data.gson.fromJson(data.jsonString,
+		// DataContainer.class);
 		List<HandleData> dataList = dataContainer.getData();
 		double value = 0;
 		double maxValue = 0;
@@ -243,9 +246,6 @@ public class HandleData {
 		}
 		return maxValue;
 	}
-	
-	
-	
 
 	/**
 	 * Shows the maximum of income and maximum of expenses for every month within
@@ -256,7 +256,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("------- MAXIMUM & MINIMUM PRO MONAT ------");
 		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		// DataContainer myObject = data.gson.fromJson(data.jsonString,
+		// DataContainer.class);
 		List<HandleData> dataList = dataContainer.getData();
 
 		String[] months = { "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September",
@@ -317,13 +318,15 @@ public class HandleData {
 	/**
 	 * Shows the potential of saving money for every month as String: < 10 "no
 	 * potential" < 200 "little potential" bigger than 200 is great potential
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public double savingsPotential() {
 		System.out.println("------------------------------------------");
 		System.out.println("-------------- SPARPOTENZIAL -------------");
 		Data data = new Data();
-		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		// DataContainer myObject = data.gson.fromJson(data.jsonString,
+		// DataContainer.class);
 		List<HandleData> dataList = dataContainer.getData();
 
 		String currentMonth = "";
@@ -388,6 +391,17 @@ public class HandleData {
 		}
 		System.out.println("");
 		return total;
+	}
+
+	public void printDataForMonth(String targetMonth) {
+		List<HandleData> dataList = dataContainer.getData();
+		for (HandleData entry : dataList) {
+			String month = entry.getMonth();
+			if (month.equals(targetMonth)) {
+				System.out.println("Month: " + month + ", Day: " + entry.getDay() + ", Expenses: " + entry.getExpenses()
+						+ ", Value: " + entry.getValue());
+			}
+		}
 	}
 
 	public DataContainer getDataContainer() {

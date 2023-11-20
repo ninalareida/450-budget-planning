@@ -23,6 +23,7 @@ public class BudgetPlanningApplication {
 		//fullData.getMaximumOfYear();
 		
 		//fullData.displayMaxMinForMonths();
-		fullData.savingsPotential();
+		//fullData.savingsPotential();
+		fullData.printDataForMonth("Januar");
 	}
 }
