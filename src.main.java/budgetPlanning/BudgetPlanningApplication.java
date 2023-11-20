@@ -18,11 +18,11 @@ public class BudgetPlanningApplication {
 		HandleData fullData = new HandleData(myObject);
 		//DataContainer t = fullData.getDataContainer();
 		//fullData.showFullData();	
-		//fullData.getSumOfBalanceOfMonth();
+		fullData.getSumOfBalanceOfMonth();
 		
 		//fullData.getMaximumOfYear();
 		
 		//fullData.displayMaxMinForMonths();
-		fullData.savingsPotential();
+		//fullData.savingsPotential();
 	}
 }

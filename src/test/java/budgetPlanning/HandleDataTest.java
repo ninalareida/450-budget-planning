@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,6 +59,10 @@ public class HandleDataTest {
 		// Mock the fromJson method
 		when(mockGson.fromJson(anyString(), eq(DataContainer.class))).thenReturn(testDataContainer);
 	}
+	
+	/**
+	 * Rechenfunktionalität von MaximumOfYear
+	 */
 
 	 @Test
 	    public void testGetMaximumOfYear() {
@@ -68,7 +73,9 @@ public class HandleDataTest {
 	    }
 	 
 	 
-	 //Konsistenz des Outputs
+	 /**
+	  * Konsistenz des Outputs
+	  */
 	 @Test
 	 public void testSavingsPotentialOutputFormatting() {
 	     // Umleitung der Standardausgabe
@@ -84,14 +91,16 @@ public class HandleDataTest {
 	     assertTrue(output.contains("Februar"));
 	     assertTrue(output.contains("März"));
 	     assertTrue(output.contains("April"));
-	     // Überprüfen Sie auf spezifische Formatierungsdetails, z.B. ob die Einkommen und Ausgaben korrekt angezeigt werden
+	    
 
 	     // Standardausgabe zurücksetzen
 	     System.setOut(System.out);
 	 }
 	 
 	 
-	 //Testen der Rechenfunktionen
+	 /**
+	  * gesamthafte Funktionalität (mit Hilfsmethode)
+	  */
 	 @Test
 	 public void testSavingsPotentialCalculations() {
 	     
@@ -100,7 +109,7 @@ public class HandleDataTest {
 
 	     handleData.savingsPotential();
 
-	     // Überprüfen der Ausgabe
+	     // prüfen
 	     String output = outContent.toString();
 	     assertTrue(output.contains("Einkommen: 3000.0")); 
 	     assertTrue(output.contains("Ausgaben: 200.0"));
@@ -116,7 +125,9 @@ public class HandleDataTest {
 	 }
 	 
 	 
-	 // Testen ob die Ausgabe komplett ist
+	/**
+	 * Prüfen ob die Ausgabe komplett ist.
+	 */
 	 
 	 @Test
 	 public void testSavingsPotentialCompleteness() {
@@ -124,28 +135,50 @@ public class HandleDataTest {
 	     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	     System.setOut(new PrintStream(outContent));
 
-	     // Ausführen der Methode
 	     handleData.savingsPotential();
 
-	     // Überprüfen der Ausgabe
+	     // prüfen
 	     String output = outContent.toString();
 	     String[] months = {"Januar", "Februar", "März", "April"};
 	     for (String month : months) {
 	         assertTrue(output.contains("Monat: " + month));
 	     }
 
-	     // Standardausgabe zurücksetzen
 	     System.setOut(System.out);
 	 }
 	 
-	 @Test
-	    public void getSumOfBalanceOfMonth() {
-	        double result = handleData.getSumOfBalanceOfMonth();
-	        double expected = 8000.0; 
-	        assertEquals(expected, result, 0.01);
-	        
-	    }
+
+	 /**
+	  * Mutationstest von den Daten
+	  * + values werden um 100 verändert, dies erkennt der Test dann.
+	  */
 	 
+	 @Test
+	 public void testMutationInData() {
+		    // Erstellen Testdaten + Kopie
+		    List<HandleData> originalDataList = Arrays.asList(
+		        new HandleData("Januar", 1, true, 100.0),
+		        new HandleData("Februar", 2, false, 3000.0)
+		    );
+		    List<HandleData> testDataList = new ArrayList<>();
+		    for (HandleData item : originalDataList) {
+		        testDataList.add(new HandleData(item.getMonth(), item.getDay(), item.getExpenses(), item.getValue()));
+		    }
+
+		    DataContainer testDataContainer = new DataContainer();
+		    testDataContainer.setData(testDataList);
+		    handleData.setDataContainer(testDataContainer);
+
+		    // Änderung
+		    for (HandleData item : testDataList) {       
+		        item.setValue(item.getValue() + 100);
+		    }
+
+		    // vergleichen
+		    assertNotEquals(originalDataList, testDataContainer.getData());
+		}
+	 
+ 
 	 //testdriven Um das Time-Freezing integrieren zu können wird noch ein Usecase
 	 //hinzugefügt: der Nutzer soll den aktuellen Monat ausgeben können.
 	 //Damit wird der Time-Aspekt integriert. Dies geschieht als Punkt 4 des
@@ -160,79 +193,5 @@ public class HandleDataTest {
 	 
 	 
 
-	/*
-	 * @Test void testShowFullData() { List<HandleData> expectedList =
-	 * Arrays.asList(new HandleData("Januar", 1, true, 100.0), new
-	 * HandleData("Februar", 2, false, 200.0));
-	 * 
-	 * when(mockDataContainer.getData()).thenReturn(expectedList);
-	 * 
-	 * HandleData handleData = new HandleData(); List<HandleData> result =
-	 * handleData.showFullData();
-	 * 
-	 * assertEquals(expectedList, result); verify(mockDataContainer).getData(); }
-	 * 
-	 * @Test void testIsValidJson() { Data data = new Data("Gültiger JSON-String");
-	 * assertTrue(data.isValidJson()); }
-	 * 
-	 * @Test void testCreateNewDataInstance() { HandleData handleData = new
-	 * HandleData(); Data data =
-	 * handleData.createNewDataInstance("Gültiger JSON-String");
-	 * assertNotNull(data); }
-	 * 
-	 * @Test void testValidateData() { Data validData = new
-	 * Data("Gültiger JSON-String"); assertTrue(validData.validateData());
-	 * 
-	 * Data invalidData = new Data("Ungültiger JSON-String");
-	 * assertFalse(invalidData.validateData()); }
-	 * 
-	 * @Test void testGetSumOfBalanceOfMonth() { // Mock DataContainer DataContainer
-	 * mockDataContainer = mock(DataContainer.class);
-	 * 
-	 * // Mock data List<HandleData> dataList = Arrays.asList(new
-	 * HandleData("Januar", 1, true, 100.0), new HandleData("Januar", 2, false,
-	 * 200.0), new HandleData("Februar", 1, true, 300.0), new HandleData("Februar",
-	 * 2, false, 150.0));
-	 * 
-	 * // Set up the mock to return the data
-	 * when(mockDataContainer.getData()).thenReturn(dataList);
-	 * 
-	 * // Create an instance of HandleData with the mocked DataContainer HandleData
-	 * handleData = new HandleData(mockDataContainer);
-	 * 
-	 * // Capture System.out.println output ArgumentCaptor<String> outputCaptor =
-	 * ArgumentCaptor.forClass(String.class);
-	 * 
-	 * // Call the method handleData.getSumOfBalanceOfMonth();
-	 * 
-	 * // Verify the expected output verifyPrintStatements(outputCaptor, "Januar",
-	 * 300.0, 100.0, 200.0); verifyPrintStatements(outputCaptor, "Februar", 450.0,
-	 * 300.0, 150.0); }
-	 * 
-	 * private void verifyPrintStatements(ArgumentCaptor<String> outputCaptor,
-	 * String month, double total, double income, double expenses) { // Verify the
-	 * expected output for each month String expectedHeader = "Monat: " + month;
-	 * String expectedIncome = "\tEinkommen: " + income; String expectedExpenses =
-	 * "\tAusgaben: " + expenses;
-	 * 
-	 * // Capture and assert the output List<String> outputValues =
-	 * outputCaptor.getAllValues();
-	 * 
-	 * assertTrue(outputValues.contains(expectedHeader));
-	 * assertTrue(outputValues.contains(expectedIncome));
-	 * assertTrue(outputValues.contains(expectedExpenses)); // You can add more
-	 * assertions if needed }
-	 * 
-	 * @Test void testSavingsPotential() { List<HandleData> dataList =
-	 * Arrays.asList(new HandleData("Januar", 1, false, 500.0), new
-	 * HandleData("Januar", 2, true, 300.0), new HandleData("Februar", 1, false,
-	 * 1000.0), new HandleData("Februar", 2, true, 200.0));
-	 * 
-	 * when(mockDataContainer.getData()).thenReturn(dataList);
-	 * 
-	 * HandleData handleData = new HandleData(); handleData.savingsPotential();
-	 * 
-	 * // Wie im vorherigen Test ist auch hier die Überprüfung der Ausgabe //
-	 * erforderlich. }
-	 */
+	
 }

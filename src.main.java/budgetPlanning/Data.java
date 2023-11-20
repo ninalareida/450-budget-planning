@@ -268,7 +268,7 @@ public class Data {
 			+ "    {\"month\": \"Juli\", \"day\": 6, \"expenses\": false, \"value\": 75.0},\n"
 			+ "    {\"month\": \"Juli\", \"day\": 7, \"expenses\": false, \"value\": 90.0},\n"
 			+ "    {\"month\": \"Juli\", \"day\": 8, \"expenses\": true, \"value\": 150.0},\n"
-			+ "    {\"month\": \"Juli\", \"day\": 9, \"expenses\": true, \"value\": 9000.0},\n"
+			+ "    {\"month\": \"Juli\", \"day\": 9, \"expenses\": true, \"value\": 2000.0},\n"
 			+ "    {\"month\": \"Juli\", \"day\": 9, \"expenses\": false, \"value\": 170.0},\n"
 			+ "    {\"month\": \"Juli\", \"day\": 10, \"expenses\": true, \"value\": 65.0},\n"
 			+ "    {\"month\": \"Juli\", \"day\": 10, \"expenses\": false, \"value\": 75.0},\n"
