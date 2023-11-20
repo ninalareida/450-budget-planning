@@ -416,8 +416,17 @@ public class HandleData {
 		    }
 		}
 		
-	
-	
+		
+		public void printDataForMonth(String targetMonth) {
+			List<HandleData> dataList = dataContainer.getData();
+			for (HandleData entry : dataList) {
+				String month = entry.getMonth();
+				if (month.equals(targetMonth)) {
+					System.out.println("Month: " + month + ", Day: " + entry.getDay() + ", Expenses: " + entry.getExpenses()
+							+ ", Value: " + entry.getValue());
+				}
+			}
+		}
 	
 	
 	

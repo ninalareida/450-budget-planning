@@ -178,6 +178,22 @@ public class HandleDataTest {
 		    assertNotEquals(originalDataList, testDataContainer.getData());
 		}
 	 
+	 
+	 @Test
+	 public void testPrintDataForMonth() {
+			// Redirect System.out.println to capture output
+			ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+			System.setOut(new PrintStream(outContent));
+
+			// Test the method
+			//HandleData.printDataForMonth(handleData.getDataContainer().getData(), "Januar");
+			handleData.printDataForMonth("Januar");
+
+			// Verify the printed output
+			String expectedOutput = "Month: Januar, Day: 1, Expenses: true, Value: 100.0";
+			assertEquals(expectedOutput, outContent.toString().trim());
+		}
+	 
  
 	 //testdriven Um das Time-Freezing integrieren zu können wird noch ein Usecase
 	 //hinzugefügt: der Nutzer soll den aktuellen Monat ausgeben können.
