@@ -65,6 +65,35 @@ public class HandleDataTest {
 	        
 	    }
 	 
+	 @Test
+	    public void testSavingsPotential() {
+	        double result = handleData.savingsPotential();
+	        double expected = 8000.0; 
+	        assertEquals(expected, result, 0.01);
+	        
+	    }
+	 
+	 @Test
+	    public void getSumOfBalanceOfMonth() {
+	        double result = handleData.getSumOfBalanceOfMonth();
+	        double expected = 8000.0; 
+	        assertEquals(expected, result, 0.01);
+	        
+	    }
+	 
+	 //testdriven Um das Time-Freezing integrieren zu können wird noch ein Usecase
+	 //hinzugefügt: der Nutzer soll den aktuellen Monat ausgeben können.
+	 //Damit wird der Time-Aspekt integriert. Dies geschieht als Punkt 4 des
+	 //Test-Driven-Developments.
+	 
+	 @Test
+	    public void getCurrentMonth() {
+	        double result = handleData.getSumOfBalanceOfMonth();
+	        double expected = 8000.0; 
+	        assertEquals(expected, result, 0.01);
+	        
+	    }
+	 
 	 
 
 	/*

@@ -148,8 +148,9 @@ public class HandleData {
 
 	/**
 	 * Shows the sum of income and expenses of each each month
+	 * @return 
 	 */
-	public void getSumOfBalanceOfMonth() {
+	public double getSumOfBalanceOfMonth() {
 		System.out.println("------------------------------------------");
 		System.out.println("----- EINKOMMEN & AUSGABEN PRO MONAT -----");
 		Data data = new Data();
@@ -195,6 +196,7 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("\tEinkommen: " + totalIncome);
 		System.out.println("\tAusgaben: " + totalExpenses);
+		return totalExpenses;
 	}
 
 	/**
@@ -315,8 +317,9 @@ public class HandleData {
 	/**
 	 * Shows the potential of saving money for every month as String: < 10 "no
 	 * potential" < 200 "little potential" bigger than 200 is great potential
+	 * @return 
 	 */
-	public void savingsPotential() {
+	public double savingsPotential() {
 		System.out.println("------------------------------------------");
 		System.out.println("-------------- SPARPOTENZIAL -------------");
 		Data data = new Data();
@@ -384,6 +387,7 @@ public class HandleData {
 			System.out.println("\t \t --> Hohes Sparpotenzial");
 		}
 		System.out.println("");
+		return total;
 	}
 
 	public DataContainer getDataContainer() {

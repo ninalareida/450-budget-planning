@@ -16,7 +16,7 @@ public class BudgetPlanningApplication {
 		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
 		
 		HandleData fullData = new HandleData(myObject);
-		DataContainer t = fullData.getDataContainer();
+		//DataContainer t = fullData.getDataContainer();
 		//fullData.showFullData();	
 		//fullData.getSumOfBalanceOfMonth();
 		
