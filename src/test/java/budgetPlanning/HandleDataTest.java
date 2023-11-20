@@ -45,12 +45,13 @@ public class HandleDataTest {
 		List<HandleData> testDataList = Arrays.asList(new HandleData("Januar", 1, true, 100.0),
 				new HandleData("Februar", 2, false, 3000.0), 
 				new HandleData("März", 3, true, 200.0),
-				new HandleData("April", 4, false, 9000.0)
-		// Weitere Daten hinzufügen
+				new HandleData("April", 4, false, 8000.0)
 		);
 
 		DataContainer testDataContainer = new DataContainer();
 		testDataContainer.setData(testDataList);
+		
+		handleData.setDataContainer(testDataContainer);
 
 		// Mock the fromJson method
 		when(mockGson.fromJson(anyString(), eq(DataContainer.class))).thenReturn(testDataContainer);
@@ -59,9 +60,12 @@ public class HandleDataTest {
 	 @Test
 	    public void testGetMaximumOfYear() {
 	        double result = handleData.getMaximumOfYear();
-	        double expected = 9000.0; // Erwarteter maximaler Wert aus den Testdaten
+	        double expected = 8000.0; 
 	        assertEquals(expected, result, 0.01);
+	        
 	    }
+	 
+	 
 
 	/*
 	 * @Test void testShowFullData() { List<HandleData> expectedList =

@@ -12,13 +12,17 @@ package budgetPlanning;
 public class BudgetPlanningApplication {
 
 	public static void main(String[] args) {
+		Data data = new Data();
+		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
 		
-		HandleData fullData = new HandleData();
+		HandleData fullData = new HandleData(myObject);
+		DataContainer t = fullData.getDataContainer();
 		//fullData.showFullData();	
-		fullData.getSumOfBalanceOfMonth();
-		//fullData.getMaxOfYear();
+		//fullData.getSumOfBalanceOfMonth();
+		
+		//fullData.getMaximumOfYear();
 		
 		//fullData.displayMaxMinForMonths();
-		//fullData.savingsPotential();
+		fullData.savingsPotential();
 	}
 }

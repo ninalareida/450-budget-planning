@@ -15,21 +15,21 @@ public class HandleData {
 	private int day;
 	private Boolean expenses;
 	private double value;
-	private final DataContainer dataContainer;
+	private DataContainer dataContainer;
 	
 	public HandleData() {
-		this.dataContainer = new DataContainer();
+		this.setDataContainer(new DataContainer());
 
 	}
 
 	public HandleData(DataContainer dataContainer) {
-		this.dataContainer = dataContainer;
+		this.setDataContainer(dataContainer);
 
 	}
 
 	public HandleData(String month, int day, Boolean expenses, double value) {
 		super();
-		this.dataContainer = new DataContainer();
+		this.setDataContainer(new DataContainer());
 		this.month = month;
 		this.day = day;
 		this.expenses = expenses;
@@ -127,8 +127,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("------------------ DATEN -----------------");
 		Data data = new Data();
-		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = myObject.getData();
+		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = dataContainer.getData();
 		for (HandleData item : dataList) {
 			System.out.println("------------------------------------------");
 			System.out.println("Monat: " + item.getMonth());
@@ -153,8 +153,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("----- EINKOMMEN & AUSGABEN PRO MONAT -----");
 		Data data = new Data();
-		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = myObject.getData();
+		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = dataContainer.getData();
 
 		String currentMonth = "";
 		double totalIncome = 0;
@@ -206,8 +206,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("-------------- JAHR MAXIMUM --------------");
 		Data data = new Data();
-		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = myObject.getData();
+		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = dataContainer.getData();
 		double value = 0;
 		double maxValue = 0;
 
@@ -227,8 +227,8 @@ public class HandleData {
 	
 	public double getMaximumOfYear() {
 		Data data = new Data();
-		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = myObject.getData();
+		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = dataContainer.getData();
 		double value = 0;
 		double maxValue = 0;
 
@@ -254,8 +254,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("------- MAXIMUM & MINIMUM PRO MONAT ------");
 		Data data = new Data();
-		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = myObject.getData();
+		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = dataContainer.getData();
 
 		String[] months = { "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September",
 				"Oktober", "November", "Dezember" };
@@ -320,8 +320,8 @@ public class HandleData {
 		System.out.println("------------------------------------------");
 		System.out.println("-------------- SPARPOTENZIAL -------------");
 		Data data = new Data();
-		DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
-		List<HandleData> dataList = myObject.getData();
+		//DataContainer myObject = data.gson.fromJson(data.jsonString, DataContainer.class);
+		List<HandleData> dataList = dataContainer.getData();
 
 		String currentMonth = "";
 		double totalIncome = 0;
@@ -384,5 +384,13 @@ public class HandleData {
 			System.out.println("\t \t --> Hohes Sparpotenzial");
 		}
 		System.out.println("");
+	}
+
+	public DataContainer getDataContainer() {
+		return dataContainer;
+	}
+
+	public void setDataContainer(DataContainer dataContainer) {
+		this.dataContainer = dataContainer;
 	}
 }
