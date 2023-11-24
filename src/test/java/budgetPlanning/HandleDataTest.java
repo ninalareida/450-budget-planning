@@ -46,6 +46,7 @@ public class HandleDataTest {
 
 		// Create test data
 		List<HandleData> testDataList = Arrays.asList(new HandleData("Januar", 1, true, 100.0),
+				new HandleData("Januar", 1, false, 500.0),
 				new HandleData("Februar", 2, false, 3000.0), 
 				new HandleData("März", 3, true, 200.0),
 				new HandleData("April", 4, false, 8000.0)
@@ -113,7 +114,7 @@ public class HandleDataTest {
 	     String output = outContent.toString();
 	     assertTrue(output.contains("Einkommen: 3000.0")); 
 	     assertTrue(output.contains("Ausgaben: 200.0"));
-	     assertTrue(output.contains("Differenz:"));
+	     assertTrue(output.contains("Differenz: 400.0"));
 	     assertTrue(output.contains("Hohes Sparpotenzial"));
 	     
 	   
@@ -190,7 +191,8 @@ public class HandleDataTest {
 			handleData.printDataForMonth("Januar");
 
 			// Verify the printed output
-			String expectedOutput = "Month: Januar, Day: 1, Expenses: true, Value: 100.0";
+			String expectedOutput = "Month: Januar, Day: 1, Expenses: true, Value: 100.0\r\n" + 
+                    "Month: Januar, Day: 1, Expenses: false, Value: 500.0";
 			assertEquals(expectedOutput, outContent.toString().trim());
 		}
 	 
