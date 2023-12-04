@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
+//import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +48,9 @@ public class HandleDataTest {
 		// Create test data
 		List<HandleData> testDataList = Arrays.asList(new HandleData("Januar", 1, true, 100.0),
 				new HandleData("Januar", 1, false, 500.0),
+				new HandleData("Februar", 1, true, 2990.0), 
 				new HandleData("Februar", 2, false, 3000.0), 
+				new HandleData("März", 3, false, 300.0),
 				new HandleData("März", 3, true, 200.0),
 				new HandleData("April", 4, false, 8000.0)
 		);
@@ -112,10 +115,61 @@ public class HandleDataTest {
 
 	     // prüfen
 	     String output = outContent.toString();
-	     assertTrue(output.contains("Einkommen: 3000.0")); 
-	     assertTrue(output.contains("Ausgaben: 200.0"));
+	     assertTrue(output.contains("Einkommen: 500.0")); 
+	     assertTrue(output.contains("Ausgaben: 100.0"));
 	     assertTrue(output.contains("Differenz: 400.0"));
 	     assertTrue(output.contains("Hohes Sparpotenzial"));
+
+	     // Standardausgabe zurücksetzen
+	     System.setOut(System.out);
+	     
+	     System.out.println(output);
+	 }
+	 
+	 
+	 @Test
+	 public void testNoPotential() {
+	     
+	     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outContent));
+
+	     handleData.savingsPotential();
+
+	     // prüfen
+	     String output = outContent.toString();
+	     
+	     assertTrue(output.contains("Einkommen: 3000.0")); 
+	     assertTrue(output.contains("Ausgaben: 2990.0"));
+	     assertTrue(output.contains("Differenz: 10.0"));
+	     assertTrue(output.contains("Kein Sparpotenzial"));
+	     
+	 
+	     
+	   
+
+	     // Standardausgabe zurücksetzen
+	     System.setOut(System.out);
+	     
+	     System.out.println(output);
+	 }
+	 
+	 
+	 @Test
+	 public void testMiddlePotential() {
+	     
+	     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outContent));
+
+	     handleData.savingsPotential();
+
+	     // prüfen
+	     String output = outContent.toString();
+	  
+	     
+	     assertTrue(output.contains("Einkommen: 300.0")); 
+	     assertTrue(output.contains("Ausgaben: 200.0"));
+	     assertTrue(output.contains("Differenz: 100.0"));
+	     assertTrue(output.contains("Mittel Sparpotenzial"));
 	     
 	   
 

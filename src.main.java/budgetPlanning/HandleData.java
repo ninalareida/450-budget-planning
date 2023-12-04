@@ -390,9 +390,9 @@ public class HandleData {
 		
 
 		private String determineSavingsCategory(double total) {
-		    if (total < 10) {
+		    if (total <= 10) {
 		        return "Kein Sparpotenzial";
-		    } else if (total < 200) {
+		    } else if (total <= 200) {
 		        return "Mittel Sparpotenzial";
 		    } else {
 		        return "Hohes Sparpotenzial";
