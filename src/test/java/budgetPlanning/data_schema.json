@@ -1,0 +1,27 @@
+{"type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "string",
+            "pattern": "^[a-zA-Z]+$"
+          },
+          "day": {
+            "type": "integer"
+          },
+          "expenses": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": ["month", "day", "expenses", "value"]
+      }
+    }
+  },
+  "required": ["data"]
+}
